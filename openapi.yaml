@@ -1,0 +1,200 @@
+openapi: 3.0.3
+
+info:
+  title: CampusLab BFF API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+security:
+  - bearerAuth: []
+
+paths:
+
+  /api/bookings:
+
+    get:
+      summary: Listar reservas
+      operationId: getBookings
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: OK
+
+    post:
+      summary: Crear reserva
+      operationId: createBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: Reserva creada
+
+  /api/bookings/{id}:
+
+    get:
+      summary: Obtener reserva
+      operationId: getBookingById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+
+  /api/bookings/{id}/status:
+
+    put:
+      summary: Actualizar estado
+      operationId: updateBookingStatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Estado actualizado
+
+  /api/catalog/resources:
+
+    get:
+      summary: Listar recursos
+      operationId: getResources
+      responses:
+        '200':
+          description: OK
+
+    post:
+      summary: Crear recurso
+      operationId: createResource
+      responses:
+        '201':
+          description: Recurso creado
+
+  /api/catalog/resources/{id}:
+
+    get:
+      summary: Obtener recurso
+      operationId: getResourceById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+
+    put:
+      summary: Actualizar recurso
+      operationId: updateResource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Recurso actualizado
+
+  /api/report/kpis:
+
+    get:
+      summary: Obtener KPIs
+      operationId: getKpis
+      parameters:
+        - name: range
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+
+  /api/report/top-resources:
+
+    get:
+      summary: Obtener recursos más utilizados
+      operationId: getTopResources
+      parameters:
+        - name: range
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+
+  /api/audit/events:
+
+    get:
+      summary: Consultar auditoría
+      operationId: getAuditEvents
+      responses:
+        '200':
+          description: OK
+
+  /api/audit/bookings/{bookingId}:
+
+    get:
+      summary: Consultar timeline de reserva
+      operationId: getBookingTimeline
+      parameters:
+        - name: bookingId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
