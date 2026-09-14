@@ -16,7 +16,7 @@ public class CatalogClient {
 
     private final RestClient restClient;
 
-    @Value("${service.catalog.url}")
+    @Value("${services.catalog.url}")
     private String catalogServiceUrl;
 
 

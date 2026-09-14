@@ -17,7 +17,7 @@ public class BookingsClient {
 
     private final RestClient restClient;
 
-    @Value("${service.booking.url}")
+    @Value("${services.booking.url}")
     private String bookingServiceUrl;
 
 
