@@ -3,6 +3,7 @@ package bff.data.exchange.catalog;
 import bff.presentation.request.ResourceRequest;
 import bff.presentation.response.CatalogResourceResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -13,14 +14,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CatalogClient {
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
-    private static final String BASE_URL =
-            "http://localhost:8082/api/catalog/resources";
+    @Value("${service.catalog.url}")
+    private String catalogServiceUrl;
+
 
     public List<CatalogResourceResponse> getResource() {
         return restClient.get()
-                .uri(BASE_URL)
+                .uri(catalogServiceUrl + "/api/catalog/resources")
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
                 }
@@ -29,14 +31,14 @@ public class CatalogClient {
 
     public CatalogResourceResponse getResourceById(Long id) {
         return restClient.get()
-                .uri(BASE_URL + "/" + id)
+                .uri(catalogServiceUrl + "/api/catalog/resources/" + id)
                 .retrieve()
                 .body(CatalogResourceResponse.class);
     }
 
     public CatalogResourceResponse createResource(ResourceRequest request) {
         return restClient.post()
-                .uri(BASE_URL)
+                .uri(catalogServiceUrl + "/api/catalog/resources")
                 .body(request)
                 .retrieve()
                 .body(CatalogResourceResponse.class);
@@ -47,7 +49,7 @@ public class CatalogClient {
             ResourceRequest request
     ) {
         return restClient.put()
-                .uri(BASE_URL + "/" + id)
+                .uri(catalogServiceUrl + "/api/catalog/resources/" + id)
                 .body(request)
                 .retrieve()
                 .body(CatalogResourceResponse.class);
