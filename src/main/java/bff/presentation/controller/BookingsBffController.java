@@ -20,7 +20,7 @@ public class BookingsBffController {
     private final BookingsClient bookingsClient;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('Admin', 'Operador', 'Cliente')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR', 'CLIENT')")
     public ResponseEntity<BookingsResponse> createBooking(
             @Valid @RequestBody CreateBookingRequest request) {
 
@@ -30,7 +30,7 @@ public class BookingsBffController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('Admin', 'Operador', 'Cliente')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR', 'CLIENT')")
     public ResponseEntity<BookingsResponse> getBookingById(
             @PathVariable Long id) {
 
@@ -40,7 +40,7 @@ public class BookingsBffController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('Admin', 'Operador', 'Cliente')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR', 'CLIENT')")
     public ResponseEntity<List<BookingsResponse>> getBookings() {
 
         return ResponseEntity.ok(
@@ -49,7 +49,7 @@ public class BookingsBffController {
     }
 
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasAnyRole('Admin', 'Operador')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR')")
     public ResponseEntity<BookingsResponse> updateBookingStatus(
             @PathVariable Long id,
             @Valid @RequestBody UpdateBookingStatusRequest request) {

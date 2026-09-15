@@ -19,21 +19,21 @@ public class CatalogBffController {
 
     private final CatalogClient catalogClient;
 
-    @GetMapping
-    @PreAuthorize("hasAnyRole('Admin', 'Operator')")
+    @GetMapping("/resources")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR')")
     public ResponseEntity<List<CatalogResourceResponse>> getResources() {
         return ResponseEntity.ok(catalogClient.getResource());
     }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('Admin', 'Operator')")
+    @GetMapping("/resources/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR')")
     public ResponseEntity<CatalogResourceResponse> getResourceById(
             @PathVariable Long id) {
         return ResponseEntity.ok(catalogClient.getResourceById(id));
     }
 
-    @PostMapping
-    @PreAuthorize("hasAnyRole('Admin', 'Operator')")
+    @PostMapping("/resources")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CatalogResourceResponse> createResource(
             @Valid @RequestBody ResourceRequest request
             ) {
@@ -43,8 +43,8 @@ public class CatalogBffController {
                 );
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('Admin', 'Operator')")
+    @PutMapping("/resources/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CatalogResourceResponse> updateResource(
             @PathVariable Long id,
             @Valid @RequestBody ResourceRequest request
