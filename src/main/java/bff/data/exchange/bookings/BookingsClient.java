@@ -6,8 +6,11 @@ import bff.presentation.response.BookingsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -22,11 +25,19 @@ public class BookingsClient {
 
 
     public BookingsResponse createBooking(CreateBookingRequest request) {
-        return restClient.post()
-                .uri(bookingServiceUrl + "/api/bookings")
-                .body(request)
-                .retrieve()
-                .body(BookingsResponse.class);
+        try {
+            return restClient.post()
+                    .uri(bookingServiceUrl + "/api/bookings")
+                    .body(request)
+                    .retrieve()
+                    .body(BookingsResponse.class);
+
+        } catch (HttpClientErrorException.Conflict ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "El laboratorio ya se encuentra reservado en ese horario"
+            );
+        }
     }
 
     public BookingsResponse getBookingById(Long id) {
