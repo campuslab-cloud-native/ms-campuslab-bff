@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -21,20 +22,19 @@ public class CatalogClient {
 
 
     public List<CatalogResourceResponse> getResource(String type) {
+
+        var uriBuilder = UriComponentsBuilder
+                .fromUriString(catalogServiceUrl)
+                .path("/api/catalog/resources");
+
+        if (type != null && !type.isBlank()) {
+            uriBuilder.queryParam("type", type);
+        }
+
         return restClient.get()
-                .uri(uriBuilder -> {
-                    uriBuilder.path(catalogServiceUrl + "/api/catalog/resources");
-
-                    if (type != null && !type.isBlank()) {
-                        uriBuilder.queryParam("type", type);
-                    }
-
-                    return uriBuilder.build();
-                })
+                .uri(uriBuilder.build().toUri())
                 .retrieve()
-                .body(new ParameterizedTypeReference<>() {
-                }
-            );
+                .body(new ParameterizedTypeReference<>() {});
     }
 
     public CatalogResourceResponse getResourceById(Long id) {
