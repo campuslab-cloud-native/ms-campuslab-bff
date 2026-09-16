@@ -6,6 +6,7 @@ import bff.presentation.request.UpdateBookingStatusRequest;
 import bff.presentation.response.BookingsResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,12 @@ public class BookingsBffController {
     public ResponseEntity<BookingsResponse> createBooking(
             @Valid @RequestBody CreateBookingRequest request) {
 
-        return ResponseEntity.ok(
-                bookingsClient.createBooking(request)
-        );
+
+        return ResponseEntity.status(
+                HttpStatus.CREATED)
+                .body(bookingsClient
+                        .createBooking(request)
+                );
     }
 
     @GetMapping("/{id}")

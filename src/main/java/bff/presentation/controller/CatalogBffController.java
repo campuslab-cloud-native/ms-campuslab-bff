@@ -20,9 +20,11 @@ public class CatalogBffController {
     private final CatalogClient catalogClient;
 
     @GetMapping("/resources")
-    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR')")
-    public ResponseEntity<List<CatalogResourceResponse>> getResources() {
-        return ResponseEntity.ok(catalogClient.getResource());
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR', 'CLIENT')")
+    public ResponseEntity<List<CatalogResourceResponse>> getResources(
+            @RequestParam(required = false) String type
+    ) {
+        return ResponseEntity.ok(catalogClient.getResource(type));
     }
 
     @GetMapping("/resources/{id}")

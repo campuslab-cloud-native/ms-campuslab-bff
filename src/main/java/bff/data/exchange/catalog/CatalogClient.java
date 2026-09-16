@@ -20,9 +20,17 @@ public class CatalogClient {
     private String catalogServiceUrl;
 
 
-    public List<CatalogResourceResponse> getResource() {
+    public List<CatalogResourceResponse> getResource(String type) {
         return restClient.get()
-                .uri(catalogServiceUrl + "/api/catalog/resources")
+                .uri(uriBuilder -> {
+                    uriBuilder.path(catalogServiceUrl + "/api/catalog/resources");
+
+                    if (type != null && !type.isBlank()) {
+                        uriBuilder.queryParam("type", type);
+                    }
+
+                    return uriBuilder.build();
+                })
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
                 }
