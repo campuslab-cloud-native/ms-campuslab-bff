@@ -1,5 +1,6 @@
 package bff.data.exchange.audit;
 
+import bff.presentation.response.AuditEventResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class AuditClient {

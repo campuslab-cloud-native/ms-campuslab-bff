@@ -1,10 +1,14 @@
 package bff.data.exchange.report;
 
+import bff.presentation.response.KpiResponse;
+import bff.presentation.response.TopResourceResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @Component
 public class ReportClient {
