@@ -8,7 +8,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,18 +25,19 @@ public class BookingsBffController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR', 'CLIENT')")
     public ResponseEntity<BookingsResponse> createBooking(
+            @AuthenticationPrincipal Jwt jwt,
             @Valid @RequestBody CreateBookingRequest request) {
 
 
         return ResponseEntity.status(
                 HttpStatus.CREATED)
                 .body(bookingsClient
-                        .createBooking(request)
+                        .createBooking(request, jwt.getSubject())
                 );
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR', 'CLIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR')")
     public ResponseEntity<BookingsResponse> getBookingById(
             @PathVariable Long id) {
 
@@ -44,11 +47,21 @@ public class BookingsBffController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR', 'CLIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'OPERATOR')")
     public ResponseEntity<List<BookingsResponse>> getBookings() {
 
         return ResponseEntity.ok(
                 bookingsClient.getBookings()
+        );
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<List<BookingsResponse>> getMyBookings(
+            @AuthenticationPrincipal Jwt jwt) {
+
+        return ResponseEntity.ok(
+                bookingsClient.getBookingsByUserId(jwt.getSubject())
         );
     }
 

@@ -12,7 +12,7 @@ security:
 
 paths:
 
-  /api/bookings:
+  /api/bff/bookings:
 
     get:
       summary: Listar reservas
@@ -58,7 +58,21 @@ paths:
         '409':
           description: El recurso no tiene cupos disponibles
 
-  /api/bookings/{id}:
+  /api/bff/bookings/me:
+
+    get:
+      summary: Listar mis reservas
+      operationId: getMyBookings
+      description: Disponible para el rol CLIENT; filtra usando el sujeto del token autenticado.
+      responses:
+        '200':
+          description: Reservas del estudiante autenticado
+        '401':
+          description: No autenticado
+        '403':
+          description: Rol no autorizado
+
+  /api/bff/bookings/{id}:
 
     get:
       summary: Obtener reserva
@@ -74,7 +88,7 @@ paths:
         '200':
           description: OK
 
-  /api/bookings/{id}/status:
+  /api/bff/bookings/{id}/status:
 
     put:
       summary: Actualizar estado

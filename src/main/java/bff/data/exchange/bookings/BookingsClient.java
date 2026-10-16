@@ -20,9 +20,12 @@ public class BookingsClient {
     @Value("${services.bookings.url}")
     private String bookingServiceUrl;
 
-    public BookingsResponse createBooking(CreateBookingRequest request) {
+    public BookingsResponse createBooking(
+            CreateBookingRequest request,
+            String userId
+    ) {
         return restClient.post()
-                .uri(bookingServiceUrl + "/api/bookings")
+                .uri(bookingServiceUrl + "/api/bookings?userId={userId}", userId)
                 .body(request)
                 .retrieve()
                 .body(BookingsResponse.class);
@@ -42,6 +45,13 @@ public class BookingsClient {
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {}
                 );
+    }
+
+    public List<BookingsResponse> getBookingsByUserId(String userId) {
+        return restClient.get()
+                .uri(bookingServiceUrl + "/api/bookings/user/{userId}", userId)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {});
     }
 
     public BookingsResponse updateStatus(
