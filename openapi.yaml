@@ -63,7 +63,7 @@ paths:
     get:
       summary: Listar mis reservas
       operationId: getMyBookings
-      description: Disponible para el rol CLIENT; filtra usando el sujeto del token autenticado.
+      description: Disponible para el rol CLIENT; filtra por el correo del usuario autenticado (claim preferred_username del token).
       responses:
         '200':
           description: Reservas del estudiante autenticado

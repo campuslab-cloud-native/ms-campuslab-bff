@@ -32,7 +32,10 @@ public class BookingsBffController {
         return ResponseEntity.status(
                 HttpStatus.CREATED)
                 .body(bookingsClient
-                        .createBooking(request, jwt.getSubject())
+                        .createBooking(
+                                request,
+                                jwt.getClaimAsString("preferred_username")
+                        )
                 );
     }
 
@@ -61,7 +64,9 @@ public class BookingsBffController {
             @AuthenticationPrincipal Jwt jwt) {
 
         return ResponseEntity.ok(
-                bookingsClient.getBookingsByUserId(jwt.getSubject())
+                bookingsClient.getBookingsByUserId(
+                        jwt.getClaimAsString("preferred_username")
+                )
         );
     }
 
