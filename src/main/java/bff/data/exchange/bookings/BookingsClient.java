@@ -25,7 +25,7 @@ public class BookingsClient {
             String userId
     ) {
         return restClient.post()
-                .uri(bookingServiceUrl + "/api/bookings?userId={userId}", userId)
+                .uri(bookingServiceUrl + "/api/v1/bookings?userId={userId}", userId)
                 .body(request)
                 .retrieve()
                 .body(BookingsResponse.class);
@@ -33,7 +33,7 @@ public class BookingsClient {
 
     public BookingsResponse getBookingById(Long id) {
         return restClient.get()
-                .uri(bookingServiceUrl + "/api/bookings/" + id)
+                .uri(bookingServiceUrl + "/api/v1/bookings/" + id)
                 .retrieve()
                 .body(BookingsResponse.class);
 
@@ -41,7 +41,7 @@ public class BookingsClient {
 
     public List<BookingsResponse> getBookings() {
         return restClient.get()
-                .uri(bookingServiceUrl + "/api/bookings")
+                .uri(bookingServiceUrl + "/api/v1/bookings")
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {}
                 );
@@ -49,7 +49,7 @@ public class BookingsClient {
 
     public List<BookingsResponse> getBookingsByUserId(String userId) {
         return restClient.get()
-                .uri(bookingServiceUrl + "/api/bookings/user/{userId}", userId)
+                .uri(bookingServiceUrl + "/api/v1/bookings/user/{userId}", userId)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {});
     }
@@ -58,7 +58,7 @@ public class BookingsClient {
             Long id,
             UpdateBookingStatusRequest request) {
         return restClient.put()
-                .uri(bookingServiceUrl + "/api/bookings/" + id + "/status")
+                .uri(bookingServiceUrl + "/api/v1/bookings/" + id + "/status")
                 .body(request)
                 .retrieve()
                 .body(BookingsResponse.class);

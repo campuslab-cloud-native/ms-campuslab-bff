@@ -27,7 +27,7 @@ public class AuditClient {
 
         var builder = UriComponentsBuilder
                 .fromUriString(auditServiceUrl)
-                .path("/api/audit/events");
+                .path("/api/v1/audit/events");
 
         if (userId != null && !userId.isBlank()) {
             builder.queryParam("userId", userId);
@@ -55,7 +55,7 @@ public class AuditClient {
 
         var uri = UriComponentsBuilder
                 .fromUriString(auditServiceUrl)
-                .path("/api/audit/bookings/{bookingId}")
+                .path("/api/v1/audit/bookings/{bookingId}")
                 .buildAndExpand(bookingId)
                 .toUri();
 

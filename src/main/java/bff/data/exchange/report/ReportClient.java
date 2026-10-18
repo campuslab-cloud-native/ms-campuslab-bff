@@ -22,7 +22,7 @@ public class ReportClient {
 
         var builder = UriComponentsBuilder
                 .fromUriString(reportServiceUrl)
-                .path("/api/report/kpis");
+                .path("/api/v1/report/kpis");
 
         if (range != null && !range.isBlank()) {
             builder.queryParam("range", range);
@@ -38,7 +38,7 @@ public class ReportClient {
 
         var builder = UriComponentsBuilder
                 .fromUriString(reportServiceUrl)
-                .path("/api/report/top-resources");
+                .path("/api/v1/report/top-resources");
 
         if (range != null && !range.isBlank()) {
             builder.queryParam("range", range);

@@ -12,7 +12,7 @@ security:
 
 paths:
 
-  /api/bff/bookings:
+  /api/v1/bookings:
 
     get:
       summary: Listar reservas
@@ -58,7 +58,7 @@ paths:
         '409':
           description: El recurso no tiene cupos disponibles
 
-  /api/bff/bookings/me:
+  /api/v1/bookings/me:
 
     get:
       summary: Listar mis reservas
@@ -72,7 +72,7 @@ paths:
         '403':
           description: Rol no autorizado
 
-  /api/bff/bookings/{id}:
+  /api/v1/bookings/{id}:
 
     get:
       summary: Obtener reserva
@@ -88,7 +88,7 @@ paths:
         '200':
           description: OK
 
-  /api/bff/bookings/{id}/status:
+  /api/v1/bookings/{id}/status:
 
     put:
       summary: Actualizar estado
@@ -112,7 +112,7 @@ paths:
         '409':
           description: Transición de estado no permitida
 
-  /api/catalog/resources:
+  /api/v1/catalog/resources:
 
     get:
       summary: Listar recursos
@@ -128,7 +128,7 @@ paths:
         '201':
           description: Recurso creado
 
-  /api/catalog/resources/{id}:
+  /api/v1/catalog/resources/{id}:
 
     get:
       summary: Obtener recurso
@@ -158,7 +158,7 @@ paths:
         '200':
           description: Recurso actualizado
 
-  /api/report/kpis:
+  /api/v1/report/kpis:
 
     get:
       summary: Obtener KPIs
@@ -173,7 +173,7 @@ paths:
         '200':
           description: OK
 
-  /api/report/top-resources:
+  /api/v1/report/top-resources:
 
     get:
       summary: Obtener recursos más utilizados
@@ -188,7 +188,7 @@ paths:
         '200':
           description: OK
 
-  /api/audit/events:
+  /api/v1/audit/events:
 
     get:
       summary: Consultar auditoría
@@ -197,7 +197,7 @@ paths:
         '200':
           description: OK
 
-  /api/audit/bookings/{bookingId}:
+  /api/v1/audit/bookings/{bookingId}:
 
     get:
       summary: Consultar timeline de reserva

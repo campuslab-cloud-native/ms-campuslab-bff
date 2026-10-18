@@ -25,7 +25,7 @@ public class CatalogClient {
 
         var uriBuilder = UriComponentsBuilder
                 .fromUriString(catalogServiceUrl)
-                .path("/api/catalog/resources");
+                .path("/api/v1/catalog/resources");
 
         if (type != null && !type.isBlank()) {
             uriBuilder.queryParam("type", type);
@@ -39,14 +39,14 @@ public class CatalogClient {
 
     public CatalogResourceResponse getResourceById(Long id) {
         return restClient.get()
-                .uri(catalogServiceUrl + "/api/catalog/resources/" + id)
+                .uri(catalogServiceUrl + "/api/v1/catalog/resources/" + id)
                 .retrieve()
                 .body(CatalogResourceResponse.class);
     }
 
     public CatalogResourceResponse createResource(ResourceRequest request) {
         return restClient.post()
-                .uri(catalogServiceUrl + "/api/catalog/resources")
+                .uri(catalogServiceUrl + "/api/v1/catalog/resources")
                 .body(request)
                 .retrieve()
                 .body(CatalogResourceResponse.class);
@@ -57,7 +57,7 @@ public class CatalogClient {
             ResourceRequest request
     ) {
         return restClient.put()
-                .uri(catalogServiceUrl + "/api/catalog/resources/" + id)
+                .uri(catalogServiceUrl + "/api/v1/catalog/resources/" + id)
                 .body(request)
                 .retrieve()
                 .body(CatalogResourceResponse.class);

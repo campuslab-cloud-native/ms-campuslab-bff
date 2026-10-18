@@ -21,10 +21,10 @@ Backend for Frontend de CampusLab.
 ## Rutas
 
 ```http
-/api/bookings/**
-/api/catalog/**
-/api/report/**
-/api/audit/**
+/api/v1/bookings/**
+/api/v1/catalog/**
+/api/v1/report/**
+/api/v1/audit/**
 ```
 
 ## Roles

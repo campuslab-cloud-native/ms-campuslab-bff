@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/bff/audit")
+@RequestMapping("/api/v1/audit")
 @RequiredArgsConstructor
 public class AuditBffController {
 
