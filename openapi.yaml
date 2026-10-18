@@ -112,6 +112,49 @@ paths:
         '409':
           description: Transición de estado no permitida
 
+  /api/v1/bookings/{id}/admin-status:
+
+    put:
+      summary: Actualizar estado de reserva como administrador
+      operationId: updateBookingAdminStatus
+      description: Requiere el rol ADMIN.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - REQUESTED
+                    - APPROVED
+                    - IN_PREPARATION
+                    - IN_USE
+                    - RETURNED
+                    - CANCELLED
+      responses:
+        '200':
+          description: Estado actualizado
+        '400':
+          description: Solicitud inválida
+        '403':
+          description: Rol no autorizado
+        '404':
+          description: Reserva no encontrada
+        '409':
+          description: Transición de estado no permitida
+
   /api/v1/catalog/resources:
 
     get:

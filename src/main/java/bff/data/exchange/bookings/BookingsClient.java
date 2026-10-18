@@ -63,4 +63,14 @@ public class BookingsClient {
                 .retrieve()
                 .body(BookingsResponse.class);
     }
+
+    public BookingsResponse updateAdminStatus(
+            Long id,
+            UpdateBookingStatusRequest request) {
+        return restClient.put()
+                .uri(bookingServiceUrl + "/api/v1/bookings/" + id + "/admin-status")
+                .body(request)
+                .retrieve()
+                .body(BookingsResponse.class);
+    }
 }

@@ -80,4 +80,15 @@ public class BookingsBffController {
                 bookingsClient.updateStatus(id, request)
         );
     }
+
+    @PutMapping("/{id}/admin-status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<BookingsResponse> updateBookingAdminStatus(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateBookingStatusRequest request) {
+
+        return ResponseEntity.ok(
+                bookingsClient.updateAdminStatus(id, request)
+        );
+    }
 }
